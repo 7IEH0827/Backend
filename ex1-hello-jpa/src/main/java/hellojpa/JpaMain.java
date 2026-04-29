@@ -16,28 +16,30 @@ public class JpaMain {
 
         try {
             // 비영속
-//            Member member = new Member(200L, "member200");
-//            Member member2 = new Member(160L, "B");
-//            member.setId(101L);
-//            member.setName("HelloJPA");
+            Member member = new Member();
+//            Member member2 = new Member (160L, "B");
+//            member.setId(3L);
+            member.setUsername("C");
+//            member.setRoleType(RoleType.GUEST);
 
             // 영속
-//            System.out.println("=== BEFORE ===");
-//            em.persist(member);
+            System.out.println("==============");
+            em.persist(member);
 //            em.persist(member2);
-//            System.out.println("=== AFTER ===");
+            System.out.println("member.id = " + member.getId());
+            System.out.println("==============");
 
-            Member member = em.find(Member.class, 150L);
+//            Member member = em.find(Member.class, 150L);
 //            Member findMember2 = em.find(Member.class, 101L);
-            member.setName("AAAAA");
+//            member.setName("AAAAA");
 //            em.flush();
 
 //            em.detach(member);
-            em.clear();
+//            em.clear();
 
-            Member member2 = em.find(Member.class, 150L);
+//            Member member2 = em.find(Member.class, 150L);
 
-            System.out.println("==================");
+//            System.out.println("==================");
 
 //            System.out.println("result = " + (findMember1 == findMember2));
 
