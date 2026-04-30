@@ -1,6 +1,7 @@
 package hellojpa.jpabook;
 
 import hellojpa.jpabook.domain.Order;
+import hellojpa.jpabook.domain.OrderItem;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -16,8 +17,13 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Order order = em.find(Order.class, 1L);
-            Long memberId = order.getMemberId();
+            Order order = new Order();
+            em.persist(order);
+
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+
+            em.persist(orderItem);
 
             tx.commit();
         } catch (Exception e) {
