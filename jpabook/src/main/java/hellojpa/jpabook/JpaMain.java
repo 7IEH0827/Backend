@@ -1,6 +1,7 @@
 package hellojpa.jpabook;
 
 import hellojpa.jpabook.domain.Book;
+import hellojpa.jpabook.domain.Item;
 import hellojpa.jpabook.domain.Order;
 import hellojpa.jpabook.domain.OrderItem;
 import jakarta.persistence.EntityManager;
@@ -23,6 +24,9 @@ public class JpaMain {
             book.setAuthor("김영한");
 
             em.persist(book);
+
+            em.createQuery("select i From Item i where type(i) = Book", Item.class)
+                    .getResultList();
 
             tx.commit();
         } catch (Exception e) {
