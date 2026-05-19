@@ -2,6 +2,7 @@ package jpql;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.List;
 
 public class JpaMain {
@@ -13,57 +14,58 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Team team = new Team();
-//            team.setName("teamA");
-//            em.persist(team);
+            Team teamA = new Team();
+            teamA.setName("팀A");
+            em.persist(teamA);
+
+            Team teamB = new Team();
+            teamB.setName("팀B");
+            em.persist(teamB);
 
             Member member1 = new Member();
-            member1.setUsername("관리자1");
-//            member.setAge(10);
-//            member.setType(MemberType.ADMIN);
-//            member.setTeam(team);
+            member1.setUsername("회원1");
+            member1.setAge(0);
+            member1.setTeam(teamA);
             em.persist(member1);
 
             Member member2 = new Member();
-            member2.setUsername("관리자2");
+            member2.setUsername("회원2");
+            member2.setAge(0);
+            member2.setTeam(teamA);
             em.persist(member2);
 
-            em.flush();
+            Member member3 = new Member();
+            member3.setUsername("회원3");
+            member3.setAge(0);
+            member3.setTeam(teamB);
+            em.persist(member3);
+
+            // FLUSH 자동 호출
+            int resultCount = em.createQuery("update Member m set m.age = 20")
+                    .executeUpdate();
+//                    .setFirstResult(0)
+//                    .setMaxResults(2)
+//                            .setParameter("username", "회원1")
+//                            .getResultList()
+
+//            em.flush();
             em.clear();
 
-            String query ="select index(t.members) From Member m";
+//            String query ="select m from Member m where m.team = :team";
 
-            List<Integer> result = em.createQuery(query, Integer.class)
-//                    .setFirstResult(1)
-//                    .setMaxResults(10)
-//                    .setParameter("userType", MemberType.ADMIN)
-                    .getResultList();
+            Member findMember = em.find(Member.class, member1.getId());
 
-//            System.out.println("result = " + result.size());
-            for (Integer s : result) {
-                System.out.println("s = " + s);
-            }
-            
-//            Member findMember = result.get(0);
-//            findMember.setAge(20);
+            System.out.println("findMember = " + findMember.getAge());
 
-//            System.out.println("result = " + result.getUsername());
-//            TypedQuery<String> query2 = em.createQuery("select m.username from Member m", String.class);
-//            List<MemberDTO> result = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
-//                    .getResultList();
+//            System.out.println("member1.getAge() = " + member1.getAge());
+//            System.out.println("member2.getAge() = " + member2.getAge());
+//            System.out.println("member3.getAge() = " + member3.getAge());
 
-//            MemberDTO memberDTO = result.get(0);
-//            System.out.println("memberDTO = " + memberDTO.getUsername());
-//            System.out.println("memberDTO = " + memberDTO.getAge());
-
-//            List<Member> resultList = query.getResultList();
-
-//            Member result = query.getSingleResult();
-            // Spring Data JPA ->
-//            System.out.println("result = " + result);
-
-//            for (Member member1 : resultList) {
-//                System.out.println("member1 = " + member1);
+//            for (Member member : resultList) {
+//                System.out.println("member = " + member);
+//                for (Member member : team.getMembers()) {
+//                    System.out.println("-> member = " + member);
+//                }
 //            }
 
             tx.commit();
