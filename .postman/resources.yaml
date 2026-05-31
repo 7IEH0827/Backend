@@ -1,0 +1,8 @@
+# Use this workspace to collaborate
+workspace:
+  id: 54c81595-792b-446c-8fed-f97392b4036f
+
+localResources:
+  docs:
+    - ..\jpashop\HELP.md
+.md
